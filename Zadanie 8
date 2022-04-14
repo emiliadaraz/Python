@@ -1,0 +1,11 @@
+# zadanie nr 8 Napisz funkcję, która sprawdzi czy 2 napisy sa palindromami.
+
+def funkcja (seq_string):
+    rev_list = list(reversed(seq_string))
+    rev_string = ''
+    for char in rev_list:
+        rev_string += char
+    return rev_string
+    
+seq_string=list(input('Podaj napis: '))
+print(funkcja(seq_string))
