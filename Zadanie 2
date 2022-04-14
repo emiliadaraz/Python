@@ -1,0 +1,13 @@
+#zadanie nr 2 Napisz funkcję, która wypisze wszystkie liczby pierwsze mniejsze od liczby będącej argumentem funkcji.
+
+def liczby_pierwsze(n):
+    liczba = [1 for x in range(n+1)]
+    pierwsze = []
+    for i in range(2,n+1):
+        if liczba[i] != 0:
+            pierwsze.append(i)
+            for a in range(i+i,n+1,i):
+                liczba[a]=0
+    return pierwsze
+    
+print(liczby_pierwsze(15))
