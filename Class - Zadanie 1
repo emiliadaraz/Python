@@ -1,0 +1,19 @@
+#Zadanie nr 1 Pamiatki
+#Stwórz klasę Pamiętnik, która zaimplementuje metody do odczytywania i dopisywania zawartości. 
+#Zawartość będzie przechowywana w pliku tekstowym.
+
+class Pamiątki:
+    def __init__(self, tekst):
+        self.tekst=tekst
+        
+    def odczytywanie_tekstu(self):
+        plik=open('plik_txt','r')
+        return plik.read()
+    
+    def dopisywanie_tekstu(self):
+        plik=open('plik_txt','w')
+        plik.write(self.tekst)
+        
+pam =  Pamiątki ('tekst')
+print(pam.dopisywanie_tekstu())
+print(pam.odczytywanie_tekstu())
