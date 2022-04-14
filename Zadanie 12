@@ -1,0 +1,15 @@
+# Zadanie nr 12 Napisz funkcję, która przyjmie argumenty nazwane imie i wzrost a następnie utworzy wpis do globalnego słownika. Dodaj co najmniej 5 wpisów.
+
+globalny_slownik = dict ()
+
+def funkcja (imie,wzrost):
+    global globalny_slownik
+    globalny_slownik[imie]=wzrost
+    return globalny_slownik
+    
+print(funkcja('Kasia',160))
+print(funkcja('Michał',150))
+print(funkcja('Adam',175))
+print(funkcja('Anna',156))
+print(funkcja('Barbara',179))
+print(funkcja('Filip',195))
