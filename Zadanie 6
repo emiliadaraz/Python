@@ -1,0 +1,23 @@
+# zadanie nr 6 Wybierz kilka państw i stwórz dla każdego słownik, który będzie zawierać dane o nazwie państwa, powierzchni, liczbie mieszkańców, PKB per capita (PPP). Napisz funkcję, która dla listy słowników będzie wypisywać listę państw uszeregowanych według:
+
+#powierzchni
+#liczby ludności
+#gęstości zaludnienia
+#PKB per capita (PPP)
+
+USA = {'name': 'USA','powierzchnia': 9833520, 'liczba_ludnosci': 332.40 , 'gęstość_zaludnienia': 34, 'PPP': 17528.4}
+PL = {'name': 'Polska', 'powierzchnia': 312679, 'liczba_ludnosci': 37.95 , 'gęstość_zaludnienia': 123, 'PPP': 855.6}
+UA = {'name': 'Ukraina', 'powierzchnia': 603548, 'liczba_ludnosci': 44.13 , 'gęstość_zaludnienia': 75.2, 'PPP': 432.6}
+
+
+dict_list = [USA, PL, UA]
+
+def sort_by(lista, value):
+    lista = sorted(lista, key=lambda x: x[value])
+    for element in lista:
+        print(element['name'])
+
+sort_by(dict_list, 'powierzchnia')
+sort_by(dict_list, 'liczba_ludnosci')
+sort_by(dict_list, 'gęstość_zaludnienia')
+sort_by(dict_list, 'PPP')
