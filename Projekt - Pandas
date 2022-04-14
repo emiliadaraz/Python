@@ -1,0 +1,129 @@
+#Pandas - Zadanie 1 - Dane 
+#Załaduj zbiór danych korzystajac z biblioteki Pandas. Kolumny w naszym zbiorze danych, to:
+#imię
+#nazwisko
+#rok urodzenia
+#miesiac urodzenia
+#dzień urodzenia
+#miejsce urodzenia
+#miasto, w którym znajduje się oddział firmy
+#departament, w którym pracuje dana osoba
+#rok roczęcia pracy w firmie
+#miesiac rozpoczęcia pracy
+#dzień rozpoczęcia pracy
+#doswiadczenie (w latach)
+
+import pandas as pd
+pd.read_csv('dataset_pandas_pd.csv', delimiter=',')
+pd.read_csv('dataset_pandas_pd.csv', delimiter=',', names = [ 'imię', 'nazwisko', 'rok_urodzenia', 'miesiac_urodzenia', 'dzień_urodzenia', 'miejsce_urodzenia', 'miasto_oddzial_firmy', 'departament_prac_osoba', 'rok_rozpocz_pracy', 'miesiac_rozpocz_pracy', 'dzien_rozpocz_pracy', 'doswiadczenie_lata'])
+df =pd.read_csv('dataset_pandas_pd.csv', delimiter=',', names = [ 'imię', 'nazwisko', 'rok_urodzenia', 'miesiac_urodzenia', 'dzień_urodzenia', 'miejsce_urodzenia', 'miasto_oddzial_firmy', 'departament_prac_osoba', 'rok_rozpocz_pracy', 'miesiac_rozpocz_pracy', 'dzien_rozpocz_pracy', 'doswiadczenie_lata'])
+df
+
+#Pandas - Zadanie 2 - Najczęstsze nazwisko, Osób o jakim nazwisku jest najwięcej ?
+
+df['nazwisko'].value_counts()
+
+#Pandas - Zadanie 3 - Płeć, Po kolumnie z nazwiskiem dodaj kolumnę reprezentującą płeć danej osoby. Można wykorzystać fakt, że imiona
+#kobiet kończą się literka 'a'.
+
+#pusta lista
+lista=[]
+print(lista)
+for i in range (len(df.imię)):
+    if df.imię[i][-1] == 'a':
+        lista.append('K')
+    else:
+        lista.append('M')
+print(lista)
+df.insert(2,'Płec',lista)
+df
+
+#Pandas - Zadanie 4 - Sortowanie Posortuj zbiór danych alfabetycznie po nazwiskach, a w ramach jednego nazwiska po roku urodzenia.
+
+df.sort_values(by=['nazwisko','rok_urodzenia'])
+df
+
+#Zadanie 5 Do zbioru danych należy dodać kolumnę, która będzie mówiła o poziomie doświadczenia danej osoby, w sposóbsłowny, przyjmując:
+#Junior (do 3 lat doświadczenia)
+#Mid (4 do 8 lat)
+#Senior (9 do 12 lat)
+#Ekspert (od 13 lat)
+
+doswiadczenie=[]
+print(doswiadczenie)
+for i in df.doswiadczenie_lata:
+    if i <= 3:
+        doswiadczenie.append('Junior')
+    if i >= 4 and i <= 8:
+        doswiadczenie.append('Mid')
+    if i >= 9 and i <= 12:
+        doswiadczenie.append('Senior')
+    if i >= 13:
+        doswiadczenie.append('Ekspert')
+        
+print(doswiadczenie)
+df.insert(13,'Poziom_doswiadczenia',doswiadczenie)
+df
+
+#Zadanie 6 Kolumna reprezentująca rok dołączenia do firmy ma puste wartości. Uzupełnij brakujące wartości używając
+# średniej dla osób o takim samym poziomie doświadczenia (kolumna z Zadania 3), w skali całej firmy.
+
+import numpy as np
+for i in range(len(df.Poziom_doswiadczenia)):
+    if pd.isnull(df['rok_rozpocz_pracy'][i]) and df['Poziom_doswiadczenia'][i]=='Junior':
+        df['rok_rozpocz_pracy'][i]=df[df['Poziom_doswiadczenia'] =='Junior'].mean().rok_rozpocz_pracy
+    if pd.isnull(df['rok_rozpocz_pracy'][i]) and df['Poziom_doswiadczenia'][i] == 'Mid':
+        df['rok_rozpocz_pracy'][i]=df[df['Poziom_doswiadczenia']=='Mid'].mean().rok_rozpocz_pracy
+    if pd.isnull(df['rok_rozpocz_pracy'][i]) and df['Poziom_doswiadczenia'][i] == 'Senior':
+        df['rok_rozpocz_pracy'][i]=df[df['Poziom_doswiadczenia']=='Senior'].mean().rok_rozpocz_pracy
+    if pd.isnull(df['rok_rozpocz_pracy'][i]) and df['Poziom_doswiadczenia'][i] == 'Ekspert':
+        df['rok_rozpocz_pracy'][i]=df[df['Poziom_doswiadczenia']=='Ekspert'].mean().rok_rozpocz_pracy
+df.rok_rozpocz_pracy=df.rok_rozpocz_pracy.astype(int)
+df
+
+#Zadanie 7 Który oddział firmy ma najwięcej Data Scientistów ?
+
+data=df[df.departament_prac_osoba=='Data Science'].groupby('miasto_oddzial_firmy').count().departament_prac_osoba
+print(data[data == data.max()])
+data.idxmax() 
+
+#Zadanie 8 Szef chciałby zmienić nazewnictwo departamentów w całej firmie. Napisz kod, który zamieni wartości w
+#kolumnie reprezentującej departament, nastepująco:
+
+#Software Development -> Software Development Team
+#HR -> Human Resources
+#Data Science -> Data Analytics
+
+df=df.replace({ "departament_prac_osoba":{"Software Development":"Software Development Team"}})
+df=df.replace({ "departament_prac_osoba":{"HR":"Human Resources"}})
+df=df.replace({ "departament_prac_osoba":{"Data Science":"Data Analytics"}})
+df
+
+ #Zadanie 9 Które biuro firmy ma najwięcej osób na Seniorskim poziomie doświadczenia ?
+ 
+data=df[df.Poziom_doswiadczenia=='Senior'].groupby('miasto_oddzial_firmy').count().Poziom_doswiadczenia
+print(data[data == data.max()])
+data.idxmax() 
+
+#Zadanie 10 Które biuro ma najwięcej kobiet na Juniorskim poziomie doświadczenia ?
+
+data=df[(df.Poziom_doswiadczenia=='Junior' ) & (df.Płec == 'K')].count().miasto_oddzial_firmy
+print(data)
+
+#Zadanie 11 Ile jest kobiet w krakowskim biurze, na Mid poziomie doświadczenia, urodzonych przed 1975 rokiem ?
+
+data=df[(df.Poziom_doswiadczenia=='Mid') & (df.Płec=='K') & (df.rok_urodzenia<1975) & (df.miasto_oddzial_firmy=='Krakow')].count().Poziom_doswiadczenia
+print(data)
+print('Obecnie jest', data, 'kobiet w krakowskim biurze, na Mid poziomie dośwadczenia, urodzonych przed 1975 rokiem')
+
+#Zadanie 12 - Seniorzy z ostatnich 10 lat 
+#Ile osób, które posiadają obecnie stanowisko seniorskie, dołączyło do firmy w przeciągu ostatnich 10 lat?
+
+data=df[(df.Poziom_doswiadczenia=='Senior') & (df.doswiadczenie_lata>= 10)].count().imię
+print(data)
+print('Obecnie', data, 'osób posiada stanowisko seniorskie i dołaczyło do firmy w przeciągu ostatnich 10 lat')
+
+
+
+
+
