@@ -1,0 +1,12 @@
+# Zadanie nr 1 Napisz funkcję o dwóch argumentach, która sprawdzi, czy jedna liczba jest podzielna przez drugą liczbę.
+
+
+def podzielnosc1 (n, i):
+    return n%i
+
+n = int(input("Podaj pierwszą liczbę: "))
+i = int(input("Podaj drugą liczbę: "))
+
+print ("Reszta z dzielenia ", n, end=" ")
+print ("przez", i, "wynosi", end= " ")
+print (podzielnosc1(n, i))
