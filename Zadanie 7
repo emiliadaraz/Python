@@ -1,0 +1,14 @@
+# Zadanie 7. Napisz funkcję przyjmujaca napis i zwracajaca informacje ile liter i cyfr jest w napisie.
+
+n = 'Katarzyna134'
+def wyraz (n):
+    litery=0
+    cyfry=0
+    for x in n:
+        if x.isalpha() == True :
+            litery +=1
+        elif x.isdigit() == True:
+            cyfry+=1
+    return litery, cyfry
+
+print(wyraz(n))
