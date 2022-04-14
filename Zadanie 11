@@ -1,0 +1,15 @@
+# zadanie nr 11 - Utworz funkcję, która przyjmie argument int n i obliczy n-ta liczbę ciagu Fibonacciego.
+
+n = int(input("Podaj wartość "))
+
+def rekurencja_fib(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return rekurencja_fib(n-1) + rekurencja_fib(n-2)
+    
+rekurencja_fib=rekurencja_fib(n-1) + rekurencja_fib(n-2)
+ 
+print(rekurencja_fib)
