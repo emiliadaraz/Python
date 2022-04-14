@@ -1,0 +1,8 @@
+# Zadanie 15. Napisz funkcję przyjmujaca jeden parametr list zawierajacy liczby całkowite i zwracajaca element, który pojawia się na liscie najczęciej.
+
+def najczesciej (lista):
+    lista = max(list1, key=list1.count)
+    return najczesciej
+
+list1 = [1,3,5,7,9, 1,1,8,3]
+print(lista)
