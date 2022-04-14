@@ -1,0 +1,17 @@
+# Zadanie nr 13 - Napisz funkcję, która przyjmie słownik mapujący imiona na wzrost, a następnie zwróci listę zawierającą imiona posortowane według wzrostu malejąco.
+
+Osoba1 = {'name':'Emilia', 'growth':160}
+Osoba2 = {'name':'Andrzej','growth': 185}
+Osoba3 = {'name':'Kamil','growth': 175}
+Osoba4 = {'name':'Anna','growth':155} 
+Osoba5 = {'name':'Katarzyna', 'growth':190}
+Osoba6 = {'name':'Adam', 'growth':178}
+
+dict_list = [Osoba1, Osoba2, Osoba3, Osoba4, Osoba5, Osoba6]
+
+def sort_by(lista, value):
+    lista = sorted(lista, key=lambda x: x[value], reverse = True)
+    for element in lista:
+        print(element['name'])
+
+sort_by(dict_list, 'growth')
