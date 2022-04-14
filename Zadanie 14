@@ -1,0 +1,13 @@
+# Zadanie nr 14 - Napisz (przy pomocy rekurencji) funkcję realizującą potęgowanie. Funkcja przyjmuje dwie liczby całkowite, będące podstawą i wykładnikiem potęgi.
+
+liczba = int(input("Podaj  liczbę: "))
+potega = int(input("Podaj potęgę: "))
+
+def potegowanie (liczba, potega):
+    if potega == 0:
+        return 1
+    else :
+        return liczba*potegowanie(liczba, potega-1)
+        
+
+print("Wynik potęgowania to", potegowanie (liczba, potega))
